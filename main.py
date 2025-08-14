@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 
 fruits = ['apple', 'banana', 'cherry', 'date']
-counts = [40, 100, 30, 55]
+counts = [140, 10, 30, 55]
 bar_colors = ['tab:red', 'tab:orange', 'pink', 'saddlebrown']  # valid colors
 
 bars = ax.bar(fruits, counts, color=bar_colors)
@@ -17,7 +17,7 @@ plt.savefig('bars.png', bbox_inches='tight')
 
 # Second plot - Line chart
 cat = ['bored', 'happy', 'happy', 'happy', 'happy', 'bored']
-dog = ['happy', 'happy', 'happy', 'happy', 'bored', 'bored']
+dog = ['bored', 'bored', 'bored', 'happy', 'bored', 'bored']
 activity = ['combing', 'drinking', 'feeding', 'napping', 'playing', 'washing']
 
 fig, ax = plt.subplots()
