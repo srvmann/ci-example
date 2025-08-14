@@ -1,0 +1,59 @@
+# This is a GitHub Actions workflow file for continuous integration
+name: CI Pipeline # we can name it anything we want
+
+# This workflow will run on pushes and pull requests to the main branch
+# It will run tests and build the project
+on:
+  push: # name of the github event that triggers the workflow
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # This job will run on the latest version of Ubuntu
+    
+    steps: # sequence of tasks to be executed in this job
+      - uses: actions/checkout@v2
+        # This step checks out the repository so that the workflow can access its contents action is a reusable component and v2 is the version of the action
+        # and checkout is the name of the action is the action we choose to use [fetch the code from the repository to the assistance runner]
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # specify the version of Python to use
+        # This step sets up Python 3.10 in the runner environment
+        
+      - uses: iterative/setup-cml@v2
+
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        # This step installs the required Python dependencies from requirements.txt
+      
+      - name: Run main file
+        run: |
+          python main.py
+        # This step runs the main.py file in the repository
+
+      - name: Run tests
+        run: |
+          python -m unittest discover 
+        # This step runs the unit tests in the repository using unittest module
+        # It will discover and run all test files that match the pattern test*.py in the
+        # current directory and its subdirectories
+        # If any test fails, the workflow will be marked as failed
+
+      - name: Craete CML Report
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }} # This is a secret token that allows CML to post comments on the pull request and setup a connection b|w 
+                                                # the GitHub repository and the CML service [assistance/agent of ci pipeline] 
+        run: |
+
+          echo "# First Line of our report" >> report.md
+          echo "## Bar Plot" >> report.md
+          echo "![](./bars.png "Bar plot")" >> report.md
+          echo "## Line Plot" >> report.md
+          echo "![](./line.png "Line plot")" >> report.md
+
+          cml comment create report.md
