@@ -46,7 +46,7 @@ jobs:
 
       - name: Craete CML Report
         env:
-          REPO_TOKEN: ${{ secrets.REPO_TOKEN }} # This is a secret token that allows CML to post comments on the pull request and setup a connection b|w 
+          REPO_TOKEN: ${{ secrets.first_key }} # This is a secret token that allows CML to post comments on the pull request and setup a connection b|w 
                                                 # the GitHub repository and the CML service [assistance/agent of ci pipeline] 
         run: |
 
